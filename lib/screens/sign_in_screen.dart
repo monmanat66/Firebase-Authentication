@@ -1,0 +1,64 @@
+
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'sign_up_screen.dart';
+
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
+
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  final _email = TextEditingController();
+  final _password = TextEditingController();
+  bool _loading = false;
+  String? _error;
+
+  Future<void> _signIn() async {
+    setState(() { _loading = true; _error = null; });
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _email.text.trim(),
+        password: _password.text.trim(),
+      );
+    } on FirebaseAuthException catch (e) {
+      setState(() { _error = e.message; });
+    } finally {
+      if (mounted) setState(() { _loading = false; });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('เข้าสู่ระบบ')),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            TextField(controller: _email, decoration: const InputDecoration(labelText: 'Email')),
+            const SizedBox(height: 12),
+            TextField(controller: _password, obscureText: true, decoration: const InputDecoration(labelText: 'รหัสผ่าน')),
+            const SizedBox(height: 16),
+            if (_error != null) Text(_error!, style: const TextStyle(color: Colors.red)),
+            const SizedBox(height: 8),
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: _loading ? null : _signIn,
+                child: _loading ? const CircularProgressIndicator() : const Text('เข้าสู่ระบบ'),
+              ),
+            ),
+            const Spacer(),
+            TextButton(
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SignUpScreen())),
+              child: const Text('ยังไม่มีบัญชี? สมัครสมาชิก'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
