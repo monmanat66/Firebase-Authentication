@@ -1,11 +1,13 @@
 
 # 🔐 AS-11 – Firebase Authentication (Flutter) + Local SQLite
 
-<img src="asset/screenshot/1.png" width="120" />
-<img src="asset/screenshot/2.png" width="120" />
-<img src="asset/screenshot/3.png" width="120" />
-<img src="asset/screenshot/4.png" width="120" />
-<img src="asset/screenshot/5.png" width="120" />
+<p align="center">
+  <img src="asset/screenshot/1.png" width="120" />
+  <img src="asset/screenshot/2.png" width="120" />
+  <img src="asset/screenshot/3.png" width="120" />
+  <img src="asset/screenshot/4.png" width="120" />
+</p>
+<img src="asset/screenshot/5.png" width="300" />
 
 แอปตัวอย่างสำหรับ **ลงทะเบียนการเข้าร่วมกิจกรรมของนักศึกษา**  
 ใช้ **Firebase Authentication (Email/Password)** สำหรับเข้าสู่ระบบ และเก็บข้อมูลลง **SQLite (local database – `sqflite`)**
